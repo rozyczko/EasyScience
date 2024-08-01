@@ -43,7 +43,7 @@ class LMFit(MinimizerBase):  # noqa: S101
         """
         super().__init__(obj=obj, fit_function=fit_function, method=method)
 
-    def make_model(self, pars: Optional[LMParameters] = None) -> LMModel:
+    def _make_model(self, pars: Optional[LMParameters] = None) -> LMModel:
         """
         Generate a lmfit model from the supplied `fit_function` and parameters in the base object.
 
@@ -133,7 +133,7 @@ class LMFit(MinimizerBase):  # noqa: S101
             # TODO Loading or manipulating data here
             return return_data
 
-        lm_fit_function.__signature__ = _wrap_to_lm_signature(self._cached_pars)
+        lm_fit_function.__signature__ = self._wrap_to_lm_signature(self._cached_pars)
         return lm_fit_function
 
     def fit(
@@ -198,7 +198,7 @@ class LMFit(MinimizerBase):  # noqa: S101
 
         try:
             if model is None:
-                model = self.make_model()
+                model = self._make_model()
 
             model_results = model.fit(y, x=x, weights=weights, **default_method, **minimizer_kwargs, **kwargs)
             self._set_parameter_fit_result(model_results, stack_status)
@@ -338,12 +338,12 @@ def _wrap_to_lm_signature(parameters: Dict) -> Signature:
         else:
             default_value = parameter.raw_value
 
-        wrapped_parameters.append(
-            InspectParameter(
-                MINIMIZER_PARAMETER_PREFIX + str(name),
-                InspectParameter.POSITIONAL_OR_KEYWORD,
-                annotation=_empty,
-                default=default_value,
+            wrapped_parameters.append(
+                InspectParameter(
+                    MINIMIZER_PARAMETER_PREFIX + str(name),
+                    InspectParameter.POSITIONAL_OR_KEYWORD,
+                    annotation=_empty,
+                    default=default_value,
+                )
             )
-        )
-    return Signature(wrapped_parameters)
+        return Signature(wrapped_parameters)
