@@ -16,7 +16,7 @@ jobs:
       uses: jesusvasquez333/verify-pr-label-action@v1.4.0
       id: verify-pr-label
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GH_TOKEN }}
         valid-labels: chore, fix, bugfix, bug, enhancement, feature, dependencies, documentation
         pull-request-number: ${{ github.event.pull_request.number }}
         disable-reviews: false
