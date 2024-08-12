@@ -523,7 +523,7 @@ class Parameter(Descriptor):
         self._args['units'] = str(self.unit)
 
         # Warnings if we are given a boolean
-        if self._type == bool:
+        if self._type is bool:
             warnings.warn(
                 'Boolean values are not officially supported in Parameter. Use a Descriptor instead',
                 UserWarning,
