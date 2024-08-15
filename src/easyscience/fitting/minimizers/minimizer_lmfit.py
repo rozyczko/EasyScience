@@ -14,7 +14,10 @@ from lmfit import Parameters as LMParameters
 from lmfit.model import ModelResult
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 978d7a45bb93d9c4b39e3bba2dbbbe0184c65d71
 # causes circular import when Parameter is imported
 # from easyscience.Objects.ObjectClasses import BaseObj
 from easyscience.Objects.Variable import Parameter
@@ -34,16 +37,12 @@ class LMFit(MinimizerBase):  # noqa: S101
 
     wrapping = 'lmfit'
 
-<<<<<<< HEAD
-    def __init__(self, obj, fit_function: Callable, method: Optional[str] = None):
-=======
     def __init__(
         self,
         obj,  #: BaseObj,
         fit_function: Callable,
         method: Optional[str] = None,
     ):  # todo after constraint changes, add type hint: obj: BaseObj  # noqa: E501
->>>>>>> fd2218c (38 add tests for minimizer bumps (#41))
         """
         Initialize the minimizer with the `BaseObj` and the `fit_function` to be used.
 
@@ -155,11 +154,7 @@ class LMFit(MinimizerBase):  # noqa: S101
             raise FitError(e)
         return results
 
-<<<<<<< HEAD
     def convert_to_pars_obj(self, parameters: Optional[List] = None) -> LMParameters:
-=======
-    def convert_to_pars_obj(self, parameters: Optional[List[Parameter]] = None) -> LMParameters:
->>>>>>> fd2218c (38 add tests for minimizer bumps (#41))
         """
         Create an lmfit compatible container with the `Parameters` converted from the base object.
 
@@ -173,25 +168,15 @@ class LMFit(MinimizerBase):  # noqa: S101
         return lm_parameters
 
     @staticmethod
-<<<<<<< HEAD
     def convert_to_par_object(parameter) -> LMParameter:
-=======
-    def convert_to_par_object(parameter: Parameter) -> LMParameter:
->>>>>>> fd2218c (38 add tests for minimizer bumps (#41))
         """
         Convert an `EasyScience.Objects.Base.Parameter` object to a lmfit Parameter object.
 
         :return: lmfit Parameter compatible object.
         :rtype: LMParameter
         """
-<<<<<<< HEAD
         ## TODO clean when full move to new_variable
         from easyscience.Objects.new_variable import Parameter as NewParameter
-=======
-        ## TODO clean when full move to
-        from easyscience.Objects.new_variable import Parameter as NewParameter
-
->>>>>>> fd2218c (38 add tests for minimizer bumps (#41))
         if isinstance(parameter, NewParameter):
             value = parameter.value
         else:
